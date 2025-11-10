@@ -28,7 +28,7 @@ namespace KPLEnvioCorreo
         protected override void OnStart(string[] args)
         {
             // TODO: Add code here to start your service.
-            EventLog.WriteEntry("Inicio servicio", EventLogEntryType.Information);
+            EventLog.WriteEntry("Inicio servicio NOtificacion Cotizacion", EventLogEntryType.Information);
 
             var now = DateTime.Now;
             var nextRun = DateTime.Today.AddHours(7); // Mediodía hoy
@@ -80,7 +80,9 @@ namespace KPLEnvioCorreo
 
                 int paraTipo = 1;
                 await EnvioCorreo(paraTipo);
-               
+                EventLog.WriteEntry("Correos Enviados NOtificacion Cotizacion Perdida", EventLogEntryType.Information);
+
+
             }
             catch (Exception ex)
             {
@@ -101,7 +103,9 @@ namespace KPLEnvioCorreo
                 timercotizacionporvencervencido.Start();
                 int paraTipo = 2;
                 await EnvioCorreo(paraTipo);
-              
+                EventLog.WriteEntry("Correos Enviados NOtificacion Cotizacion Vencido", EventLogEntryType.Information);
+
+
             }
             catch (Exception ex)
             {
@@ -122,7 +126,9 @@ namespace KPLEnvioCorreo
                 timercotizacionporvencervencidoPerdido.Start();
                 int paraTipo = 3;
                 await EnvioCorreo(paraTipo);
-               
+                EventLog.WriteEntry("Correos Enviados NOtificacion Cotizacion Vencido Perdido", EventLogEntryType.Information);
+
+
             }
             catch (Exception ex)
             {
