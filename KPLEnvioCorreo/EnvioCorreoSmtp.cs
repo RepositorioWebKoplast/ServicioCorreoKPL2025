@@ -23,15 +23,7 @@ namespace KPLEnvioCorreo
         {
             InitializeComponent();
         }
-        public void IniciarComoConsola(string[] args)
-        {
-            OnStart(args);
-        }
-
-        public void DetenerComoConsola()
-        {
-            OnStop();
-        }
+       
 
         protected override void OnStart(string[] args)
         {
@@ -49,20 +41,20 @@ namespace KPLEnvioCorreo
 
 
             timercotizacionporvencer3dias = new Timer();
-            timercotizacionporvencer3dias.Interval = 120000;
+            timercotizacionporvencer3dias.Interval = initialDelay.TotalMilliseconds;
             timercotizacionporvencer3dias.AutoReset = false;
             timercotizacionporvencer3dias.Elapsed += OnElapsedTimertimercotizacionporvencer3dias;
             timercotizacionporvencer3dias.Start();
 
             timercotizacionporvencervencido = new Timer();
-            timercotizacionporvencervencido.Interval = 120000;
+            timercotizacionporvencervencido.Interval = initialDelay.TotalMilliseconds;
             timercotizacionporvencervencido.AutoReset = false;
             timercotizacionporvencervencido.Elapsed += OnElapsedtimercotizacionporvencervencido;
             timercotizacionporvencervencido.Start();
 
 
             timercotizacionporvencervencidoPerdido = new Timer();
-            timercotizacionporvencervencidoPerdido.Interval = 120000;
+            timercotizacionporvencervencidoPerdido.Interval = initialDelay.TotalMilliseconds;
             timercotizacionporvencervencidoPerdido.AutoReset = false;
             timercotizacionporvencervencidoPerdido.Elapsed += OnElapsedtimercotizacionporvencervencidoPerdido;
             timercotizacionporvencervencidoPerdido.Start();
@@ -82,11 +74,13 @@ namespace KPLEnvioCorreo
                 // EventLog.WriteEntry("Proceso Timer", EventLogEntryType.Information);
                 // parametros que es pedido
                 //TimeSpan.FromDays(1).TotalMilliseconds;
-                int paraTipo = 1;
-                await EnvioCorreo(paraTipo);
-                timercotizacionporvencer3dias.Interval = 120000;
+                timercotizacionporvencer3dias.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
                 timercotizacionporvencer3dias.AutoReset = true;
                 timercotizacionporvencer3dias.Start();
+
+                int paraTipo = 1;
+                await EnvioCorreo(paraTipo);
+               
             }
             catch (Exception ex)
             {
@@ -102,11 +96,12 @@ namespace KPLEnvioCorreo
             {
                 // EventLog.WriteEntry("Proceso Timer", EventLogEntryType.Information);
                 // parametros que es pedido
-                int paraTipo = 2;
-                await EnvioCorreo(paraTipo);
-                timercotizacionporvencervencido.Interval = 120000;
+                timercotizacionporvencervencido.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
                 timercotizacionporvencervencido.AutoReset = true;
                 timercotizacionporvencervencido.Start();
+                int paraTipo = 2;
+                await EnvioCorreo(paraTipo);
+              
             }
             catch (Exception ex)
             {
@@ -122,11 +117,12 @@ namespace KPLEnvioCorreo
             {
                 // EventLog.WriteEntry("Proceso Timer", EventLogEntryType.Information);
                 // parametros que es pedido
-                int paraTipo = 3;
-                await EnvioCorreo(paraTipo);
-                timercotizacionporvencervencidoPerdido.Interval = 120000;
+                timercotizacionporvencervencidoPerdido.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
                 timercotizacionporvencervencidoPerdido.AutoReset = true;
                 timercotizacionporvencervencidoPerdido.Start();
+                int paraTipo = 3;
+                await EnvioCorreo(paraTipo);
+               
             }
             catch (Exception ex)
             {
