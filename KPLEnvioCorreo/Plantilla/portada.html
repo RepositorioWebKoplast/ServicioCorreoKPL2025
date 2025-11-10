@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+
+        .contenedorcaja {
+            width: 95%;
+            margin: auto;
+        }
+
+        .caja {
+            margin-left: 5%;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        p {
+            font-size: 15px;
+        }
+
+        .cabeceracaja {
+            /*           display: flex;*/
+            width: 100%;
+            background-color: rebeccapurple;
+            /*            color: white;*/
+            padding: 0.3em 0;
+            /*justify-content: center;
+            align-items: center;*/
+        }
+
+        .otrocaja {
+            /*            background-color: #2E9AFE;*/
+            color: white;
+            text-align: center;
+            padding: 0.6em 0;
+            font-size: 24px;
+        }
+        .active {
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="contenedorcaja">
+        <div class="cabeceracaja">
+
+            <div class="otrocaja">
+                {Titulo}
+            </div>
+        </div>
+        <div class="caja">
+            <h3>
+                {detallemensaje}
+            </h3>
+            <h3>
+                Numero de Cotización N°: {nrocotizacion}
+            </h3>
+            <h3>
+                Fecha de vencimiento: {FECHA_VENCIMIENTO}
+            </h3>
+            <h3>
+                Estado actual:{gestor}
+
+            </h3>
+
+            <a href={rutaportal} class="active">INGRESE AQUI PARA LA APROBACIÓN</a>
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

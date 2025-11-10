@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+
+        .contenedorcaja {
+            width: 70%;
+            margin: auto;
+        }
+
+        .caja {
+            margin-left: 17%;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        p {
+            font-size: 15px;
+        }
+
+        .cabeceracaja {
+            /*           display: flex;*/
+            width: 100%;
+            background-color: blue;
+            /*            color: white;*/
+            padding: 0.3em 0;
+            /*justify-content: center;
+            align-items: center;*/
+        }
+
+        .otrocaja {
+            /*            background-color: #2E9AFE;*/
+            color: white;
+            text-align: center;
+            padding: 0.6em 0;
+            font-size: 25px;
+        }
+
+        .active {
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="contenedorcaja">
+        <div class="cabeceracaja">
+
+            <div class="otrocaja">
+                Aviso de Cotización Aprobada
+            </div>
+        </div>
+        <div class="caja">
+            <h3>
+                Estimado su Cotizacion a sido Aprobada
+            </h3>
+            <h4>
+                Numero de Cotización N°: {nrocotizacion}
+            </h4>
+
+            <h3>
+                {AprobadorVendedor} :{gestor}
+
+            </h3>
+
+            <a href={rutaportal} class="active">INGRESE AQUI PARA VER</a>
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>

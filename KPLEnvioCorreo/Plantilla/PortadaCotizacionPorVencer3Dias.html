@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+
+        .contenedorcaja {
+            width: 90%;
+            margin: auto;
+        }
+
+        .caja {
+            margin-left: 5%;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        p {
+            font-size: 15px;
+        }
+
+        .cabeceracaja {
+            width: 100%;
+            
+            /*            color: white;*/
+            /*padding: 0.3em 0;*/
+            /*justify-content: center;
+          align-items: center;*/
+        }
+
+        .otrocaja {
+           
+            padding: 0.6em 0;
+            font-size: 18px;
+        }
+
+        .active {
+            font-weight: bold;
+            color: blue;
+        }
+        .piemensaje {
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="contenedorcaja">
+        <div class="cabeceracaja">
+            Hola {NOMBRE_GESTOR}
+            <div class="otrocaja">
+                Te recordamos que la cotización N° {NRO_COTIZACION}, correspondiente al cliente {CLIENTE}, vencerá el {FECHA_VENCIMIENTO} (en 3 días).
+                Por favor, realiza las gestiones necesarias con el cliente para confirmar si procederá con la cotización o renovar la validez si aún se encuentra en evaluación
+            </div>
+        </div>
+        <div class="caja">
+            <h3>💹 Detalles de la cotización:</h3>
+            <h3>
+                Cliente: {CLIENTENAME}
+            </h3>
+            <h3>
+                Valor de Venta: {MONTO_TOTAL} {MONEDA}
+            </h3>
+
+            <h3>
+                Fecha de emisión: {FECHA_EMISION}
+            </h3>
+            <h3>
+                Fecha de vencimiento: {FECHA_VENCIMIENTO}
+            </h3>
+
+
+            <a href={rutaportal} class="active">🔗 VER COTIZACIÓN EN SISTEMA </a>
+            <br />
+            <br />
+
+            <p class="piemensaje">
+                Este es un mensaje automático, por favor no responda a este correo.
+            </p>
+
+        </div>
+
+    </div>
+</body>
+</html>
