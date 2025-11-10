@@ -1,19 +1,4 @@
-﻿Hola {{NOMBRE_GESTOR}},
+﻿sc create EnvioCorreoSmtp binPath= "C:\Users\poweruser.KOPLAST\source\repos\KPLEnvioCorreo\KPLEnvioCorreo\bin\Debug\KPLEnvioCorreo.exe" start= auto DisplayName= "Servicio Ejcución diaria" obj= "LocalSystem"
+sc description EnvioCorreoSmtp "Ejecuta operaciones en horarios definidos"
 
-Te recordamos que la cotización N° {{NRO_COTIZACION}}, correspondiente al cliente {{CLIENTE}}, vencerá el {{FECHA_VENCIMIENTO}}, es decir, en 3 días.
-
-Por favor, realiza las gestiones necesarias con el cliente para:
-
-Confirmar si procederá con la cotización, o
-Renovar la validez si aún se encuentra en evaluación.
-
-📄 Detalles de la cotización:
-
-Cliente: {{CLIENTE}}
-Importe total: {{MONTO_TOTAL}}
-Fecha de emisión: {{FECHA_EMISION}}
-Fecha de vencimiento: {{FECHA_VENCIMIENTO}}
-Estado actual: {{ESTADO}}
-
- Accede directamente a la cotización:
-Ver cotización en el sistema 🔗
+sc delete EnvioCorreoSmtp
