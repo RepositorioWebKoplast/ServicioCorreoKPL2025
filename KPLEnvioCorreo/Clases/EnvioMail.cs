@@ -47,7 +47,7 @@ namespace KPLEnvioCorreo.Clases
 
                 foreach (var item in ListaEnvioCotizacion)
                 {
-                    if (string.IsNullOrEmpty(item.Destinatario))
+                    if (string.IsNullOrEmpty(item.Destinatario) )
                     {
                         continue;
                     }
@@ -62,6 +62,11 @@ namespace KPLEnvioCorreo.Clases
 
                             for (int i = 0; i < lista.Length; i++)
                             {
+                                if (lista[i]=="")
+                                {
+                                    continue;
+                                }
+
                                 if (i == 0)
                                 {
                                     correo.To.Add(lista[0]);
@@ -98,14 +103,21 @@ namespace KPLEnvioCorreo.Clases
 
                         correo.IsBodyHtml = true;
 
-
-                        using (var client = new SmtpClient("smtp.office365.com", 25))
+                        try
                         {
-                            client.Credentials = new System.Net.NetworkCredential("cotizacionkoplast@koplastindustrial.com", "Koplast_2024");
+                            using (var client = new SmtpClient("smtp.office365.com", 25))
+                            {
+                                client.Credentials = new System.Net.NetworkCredential("cotizacionkoplast@koplastindustrial.com", "Koplast_2024");
 
-                            client.EnableSsl = true;
-                            await client.SendMailAsync(correo);
+                                client.EnableSsl = true;
+                                await client.SendMailAsync(correo);
+                            }
                         }
+                        catch (Exception ex)
+                        {
+
+                        }
+                       
                     }                                                                        
 
                 }

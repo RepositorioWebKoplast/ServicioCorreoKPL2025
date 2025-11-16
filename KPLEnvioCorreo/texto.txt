@@ -1,4 +1,4 @@
-﻿sc create EnvioCorreoSmtp binPath= "C:\Users\poweruser.KOPLAST\source\repos\KPLEnvioCorreo\KPLEnvioCorreo\bin\Debug\KPLEnvioCorreo.exe" start= auto DisplayName= "Servicio Ejcución diaria" obj= "LocalSystem"
-sc description EnvioCorreoSmtp "Ejecuta operaciones en horarios definidos"
+﻿sc create EnvioCorreoSmtp binPath= "C:\KoplastEnvioNotificacion\KPLEnvioCorreo.exe" start= auto DisplayName= "Servicio Notificacion Cotizaciones" obj= "LocalSystem"
+sc description EnvioCorreoSmtp "Envia Notificaciones de correo a la 7 AM"
 
 sc delete EnvioCorreoSmtp
