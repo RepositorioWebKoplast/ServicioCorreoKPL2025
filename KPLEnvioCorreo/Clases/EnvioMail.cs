@@ -37,7 +37,7 @@ namespace KPLEnvioCorreo.Clases
 
                 }
 
-                //MailMessage correo = new MailMessage();
+                //MailMessage correo = new MailMessage(); hasta 
              
                     
                 if (ListaEnvioCotizacion.Count == 0)
