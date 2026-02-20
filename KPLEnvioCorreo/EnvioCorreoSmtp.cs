@@ -14,7 +14,7 @@ namespace KPLEnvioCorreo
 {
     partial class EnvioCorreoSmtp : ServiceBase
     {
-        private Timer timerpedido;
+        private Timer timerpedidoporvencer3dias;
         private Timer timercotizacionporvencer3dias;
         private Timer timercotizacionporvencervencido;
         private Timer timercotizacionporvencervencidoPerdido;
@@ -59,6 +59,13 @@ namespace KPLEnvioCorreo
             timercotizacionporvencervencidoPerdido.Elapsed += OnElapsedtimercotizacionporvencervencidoPerdido;
             timercotizacionporvencervencidoPerdido.Start();
 
+            // PARA PEDIDOS
+
+            timercotizacionporvencer3dias = new Timer();
+            timercotizacionporvencer3dias.Interval = initialDelay.TotalMilliseconds;
+            timercotizacionporvencer3dias.AutoReset = false;
+            timercotizacionporvencer3dias.Elapsed += OnElapsedTimertimerpedidoporvencer3dias;
+            timercotizacionporvencer3dias.Start();
 
             //timercotizacion = new Timer();
             //timercotizacion.Interval = 60000; // 5 segundos
@@ -68,6 +75,30 @@ namespace KPLEnvioCorreo
             //// TODO: agregar código aquí para iniciar el servicio.
         }
         private async void OnElapsedTimertimercotizacionporvencer3dias(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                // EventLog.WriteEntry("Proceso Timer", EventLogEntryType.Information);
+                // parametros que es pedido
+                //TimeSpan.FromDays(1).TotalMilliseconds;
+                timerpedidoporvencer3dias.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
+                timerpedidoporvencer3dias.AutoReset = true;
+                timerpedidoporvencer3dias.Start();
+
+                int paraTipo = 4;
+                await EnvioCorreo(paraTipo);
+                EventLog.WriteEntry("Correos Enviados NOtificacion Pedido Perdida", EventLogEntryType.Information);
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+          
+        }
+        private async void OnElapsedTimertimerpedidoporvencer3dias(object sender, ElapsedEventArgs e)
         {
             try
             {
@@ -89,7 +120,7 @@ namespace KPLEnvioCorreo
 
             }
 
-          
+
         }
 
         private async void OnElapsedtimercotizacionporvencervencido(object sender, ElapsedEventArgs e)
@@ -167,10 +198,10 @@ namespace KPLEnvioCorreo
         {
             // TODO: Add code here to perform any tear-down necessary to stop your service.
             //timerpedido.Stop();
-            if (timerpedido != null)
+            if (timercotizacionporvencer3dias != null)
             {
-                timerpedido.Stop();
-                timerpedido.Dispose();
+                timercotizacionporvencer3dias.Stop();
+                timercotizacionporvencer3dias.Dispose();
             }
 
             if (timercotizacionporvencer3dias != null)

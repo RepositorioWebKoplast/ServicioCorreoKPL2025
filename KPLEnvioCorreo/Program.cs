@@ -24,7 +24,7 @@ namespace KPLEnvioCorreo
                 //Console.WriteLine("Servicio iniciado... Presione Enter para detenerlo.");
                 //Console.ReadLine();
                 //oApp.DetenerComoConsola();
-                await oApp.EnvioCorreo(1);
+                await oApp.EnvioCorreo(5);
             }
             else
             {

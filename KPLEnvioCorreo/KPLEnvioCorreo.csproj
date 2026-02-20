@@ -74,6 +74,9 @@
     <Content Include="Plantilla\portada.html" />
     <Content Include="Plantilla\PortadaCotizacionVencidos.html" />
     <Content Include="Plantilla\PortadaCotizacionPorVencer3Dias.html" />
+    <Content Include="Plantilla\PortadaPedidoporVencer3Dias.html" />
+    <Content Include="Plantilla\PortadaPedidosVencidosPerdidos.html" />
+    <Content Include="Plantilla\PortadaPedidoVencidos.html" />
     <Content Include="Plantilla\PortadaRealizado.html" />
     <Content Include="Recursos\Sap.Data.Hana.v4.5.dll" />
     <Content Include="texto.txt" />

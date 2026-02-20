@@ -19,33 +19,45 @@ namespace KPLEnvioCorreo.Clases
             try
             {
                 Conexion oConexion = new Conexion();
-                List<ListaDESTINATARIO> ListaEnvioCotizacion = new List<ListaDESTINATARIO>();
+                List<ListaDESTINATARIO> ListaEnvioNotificacion = new List<ListaDESTINATARIO>();
                 if (tipo == 1)
                 {
-                    ListaEnvioCotizacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
+                    ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
                 }
                 else if (tipo == 2)
                 {
 
-                    ListaEnvioCotizacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
+                    ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
 
                 }
                 else if (tipo == 3)
                 {
 
-                    ListaEnvioCotizacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
+                    ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
+
+                }
+                else if (tipo == 4)
+                {
+
+                    ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
+
+                }
+                else if (tipo == 5)
+                {
+
+                    ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
 
                 }
 
                 //MailMessage correo = new MailMessage(); hasta 
-             
-                    
-                if (ListaEnvioCotizacion.Count == 0)
+
+
+                if (ListaEnvioNotificacion.Count == 0)
                 {
                     return;
                 }
 
-                foreach (var item in ListaEnvioCotizacion)
+                foreach (var item in ListaEnvioNotificacion)
                 {
                     if (string.IsNullOrEmpty(item.Destinatario) )
                     {
@@ -96,6 +108,28 @@ namespace KPLEnvioCorreo.Clases
                             //correo.To.Add("riders_230588@hotmail.com");
                             //correo.To.Add("riders_230588@hotmail.com");
                             correo.Subject = $"Cotización {item.NROCOTIZACION} Vencida — Cliente: {item.cliente}";
+                        }
+                        else if (tipo == 4)
+                        {
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
+
+
+                        }
+                        else if (tipo == 5)
+                        {
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
+
+
+                        }
+                        else if (tipo == 6)
+                        {
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
 
 
                         }
@@ -159,6 +193,24 @@ namespace KPLEnvioCorreo.Clases
             {
                 ruta = ruta + "Cotizacion/Editar/" + objeto.IDCOTIZACION;
                 path = path + "PortaCotizacionVencidosPerdidos.html";
+
+            }
+            else if (tipo == 4)
+            {
+                ruta = ruta + "PedidosPendientes";
+                path = path + "PortadaPedidoporVencer3Dias.html";
+
+            }
+            else if (tipo == 5)
+            {
+                ruta = ruta + "PedidosPendientes";
+                path = path + "PortadaPedidoVencidos.html";
+
+            }
+            else if (tipo == 6)
+            {
+                ruta = ruta + "PedidosPendientes";
+                path = path + "PortadaPedidosVencidosPerdidos.html";
 
             }
 
