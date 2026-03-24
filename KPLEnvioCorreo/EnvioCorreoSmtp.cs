@@ -61,11 +61,11 @@ namespace KPLEnvioCorreo
 
             // PARA PEDIDOS
 
-            timercotizacionporvencer3dias = new Timer();
-            timercotizacionporvencer3dias.Interval = initialDelay.TotalMilliseconds;
-            timercotizacionporvencer3dias.AutoReset = false;
-            timercotizacionporvencer3dias.Elapsed += OnElapsedTimertimerpedidoporvencer3dias;
-            timercotizacionporvencer3dias.Start();
+            //timercotizacionporvencer3dias = new Timer();
+            //timercotizacionporvencer3dias.Interval = initialDelay.TotalMilliseconds;
+            //timercotizacionporvencer3dias.AutoReset = false;
+            //timercotizacionporvencer3dias.Elapsed += OnElapsedTimertimerpedidoporvencer3dias;
+            //timercotizacionporvencer3dias.Start();
 
             //timercotizacion = new Timer();
             //timercotizacion.Interval = 60000; // 5 segundos
@@ -85,7 +85,7 @@ namespace KPLEnvioCorreo
                 timerpedidoporvencer3dias.AutoReset = true;
                 timerpedidoporvencer3dias.Start();
 
-                int paraTipo = 4;
+                int paraTipo = 1;
                 await EnvioCorreo(paraTipo);
                 EventLog.WriteEntry("Correos Enviados NOtificacion Pedido Perdida", EventLogEntryType.Information);
 
@@ -98,30 +98,7 @@ namespace KPLEnvioCorreo
 
           
         }
-        private async void OnElapsedTimertimerpedidoporvencer3dias(object sender, ElapsedEventArgs e)
-        {
-            try
-            {
-                // EventLog.WriteEntry("Proceso Timer", EventLogEntryType.Information);
-                // parametros que es pedido
-                //TimeSpan.FromDays(1).TotalMilliseconds;
-                timercotizacionporvencer3dias.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
-                timercotizacionporvencer3dias.AutoReset = true;
-                timercotizacionporvencer3dias.Start();
-
-                int paraTipo = 1;
-                await EnvioCorreo(paraTipo);
-                EventLog.WriteEntry("Correos Enviados NOtificacion Cotizacion Perdida", EventLogEntryType.Information);
-
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-
-        }
+       
 
         private async void OnElapsedtimercotizacionporvencervencido(object sender, ElapsedEventArgs e)
         {
@@ -168,6 +145,31 @@ namespace KPLEnvioCorreo
 
 
         }
+
+        //private async void OnElapsedTimertimerpedidoporvencer3dias(object sender, ElapsedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        // EventLog.WriteEntry("Proceso Timer", EventLogEntryType.Information);
+        //        // parametros que es pedido
+        //        //TimeSpan.FromDays(1).TotalMilliseconds;
+        //        timercotizacionporvencer3dias.Interval = TimeSpan.FromDays(1).TotalMilliseconds;
+        //        timercotizacionporvencer3dias.AutoReset = true;
+        //        timercotizacionporvencer3dias.Start();
+
+        //        int paraTipo = 1;
+        //        await EnvioCorreo(paraTipo);
+        //        EventLog.WriteEntry("Correos Enviados NOtificacion Cotizacion Perdida", EventLogEntryType.Information);
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+
+
+        //}
         private async void OnElapsedTimeCotizacion(object sender, ElapsedEventArgs e)
         {
             try
@@ -204,11 +206,11 @@ namespace KPLEnvioCorreo
                 timercotizacionporvencer3dias.Dispose();
             }
 
-            if (timercotizacionporvencer3dias != null)
-            {
-                timercotizacionporvencer3dias.Stop();
-                timercotizacionporvencer3dias.Dispose();
-            }
+            //if (timercotizacionporvencer3dias != null)
+            //{
+            //    timercotizacionporvencer3dias.Stop();
+            //    timercotizacionporvencer3dias.Dispose();
+            //}
             if (timercotizacionporvencervencido != null)
             {
                 timercotizacionporvencervencido.Stop();

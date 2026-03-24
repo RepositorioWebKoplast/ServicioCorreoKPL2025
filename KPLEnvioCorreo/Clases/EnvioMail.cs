@@ -48,6 +48,12 @@ namespace KPLEnvioCorreo.Clases
                     ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
 
                 }
+                else if (tipo == 7)
+                {
+
+                    ListaEnvioNotificacion = new List<ListaDESTINATARIO> { new ListaDESTINATARIO { Destinatario = "riders_230588@hotmail.com" } };
+
+                }
 
                 //MailMessage correo = new MailMessage(); hasta 
 
@@ -133,6 +139,14 @@ namespace KPLEnvioCorreo.Clases
 
 
                         }
+                        else if (tipo == 7)
+                        {
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            //correo.To.Add("riders_230588@hotmail.com");
+                            correo.Subject = $"Contrato por Vencer";
+
+
+                        }
                         correo.Body = CreateBodyPorVencer(tipo, item);
 
                         correo.IsBodyHtml = true;
@@ -141,7 +155,7 @@ namespace KPLEnvioCorreo.Clases
                         {
                             using (var client = new SmtpClient("smtp.office365.com", 25))
                             {
-                                client.Credentials = new System.Net.NetworkCredential("cotizacionkoplast@koplastindustrial.com", "Koplast_2024");
+                                client.Credentials = new System.Net.NetworkCredential("cotizacionkoplast@koplastindustrial.com", "K0pl@$t_2026@");
 
                                 client.EnableSsl = true;
                                 await client.SendMailAsync(correo);
@@ -211,6 +225,12 @@ namespace KPLEnvioCorreo.Clases
             {
                 ruta = ruta + "PedidosPendientes";
                 path = path + "PortadaPedidosVencidosPerdidos.html";
+
+            }
+            else if (tipo == 7)
+            {
+                ruta = ruta + "PedidosPendientes";
+                path = path + "PortadaContratos.html";
 
             }
 
