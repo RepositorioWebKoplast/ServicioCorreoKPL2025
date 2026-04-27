@@ -18,6 +18,9 @@ namespace KPLEnvioCorreo.Clases
 
             try
             {
+                string correoenvio = "cotizacionkoplast@koplastindustrial.com";
+                string claveenvio = "K0pl@$t_2026@";
+               
                 Conexion oConexion = new Conexion();
                 List<ListaDESTINATARIO> ListaEnvioNotificacion = new List<ListaDESTINATARIO>();
                 if (tipo == 1)
@@ -50,8 +53,9 @@ namespace KPLEnvioCorreo.Clases
                 }
                 else if (tipo == 7)
                 {
-
-                    ListaEnvioNotificacion = new List<ListaDESTINATARIO> { new ListaDESTINATARIO { Destinatario = "riders_230588@hotmail.com" } };
+                    correoenvio = "avisokoplast@koplastindustrial.com";
+                    claveenvio = "K0pl@st_2@26";
+                    ListaEnvioNotificacion = await oConexion.OBTENER_DESTINATARIOS(tipo);
 
                 }
 
@@ -62,115 +66,137 @@ namespace KPLEnvioCorreo.Clases
                 {
                     return;
                 }
+                
 
-                foreach (var item in ListaEnvioNotificacion)
-                {
-                    if (string.IsNullOrEmpty(item.Destinatario) )
+                    foreach (var item in ListaEnvioNotificacion)
                     {
-                        continue;
-                    }
-                   
-                    using (var correo = new MailMessage())
-                    {
-                        correo.From = new MailAddress("cotizacionkoplast@koplastindustrial.com");
-                        if (!string.IsNullOrEmpty(item.Destinatario))
+                        if (string.IsNullOrEmpty(item.Destinatario))
                         {
-                            // List<string> lista = item.Destinatario.Split(',').ToList();
-                            string[] lista = item.Destinatario.Split(',');
+                            continue;
+                        }
 
-                            for (int i = 0; i < lista.Length; i++)
+                        using (var correo = new MailMessage())
+                        {
+                            correo.From = new MailAddress(correoenvio);
+                            if (!string.IsNullOrEmpty(item.Destinatario))
                             {
-                                if (lista[i]=="")
+                                // List<string> lista = item.Destinatario.Split(',').ToList();
+                                string[] lista = item.Destinatario.Split(',');
+                                if (tipo == 1 || tipo == 2 || tipo == 3 || tipo == 4 || tipo == 5 || tipo == 6)
                                 {
-                                    continue;
-                                }
+                                    for (int i = 0; i < lista.Length; i++)
+                                    {
+                                        if (lista[i] == "")
+                                        {
+                                            continue;
+                                        }
 
-                                if (i == 0)
-                                {
-                                    correo.To.Add(lista[0]);
+                                        if (i == 0)
+                                        {
+                                            correo.To.Add(lista[0]);
+                                        }
+                                        else
+                                        {
+                                            correo.CC.Add(lista[i]);
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    correo.CC.Add(lista[i]);
+                                    for (int i = 0; i < lista.Length; i++)
+                                    {
+                                        if (lista[i] == "")
+                                        {
+                                            continue;
+                                        }
+                                        correo.To.Add(lista[i]);
+
+                                    }
+
+                                }
+
+
+
+                            }
+                            if (tipo == 1)
+                            {
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                //correo.To.Add("lhuerta@koplastindustrial.com");
+                                correo.Subject = $"Cotización {item.NROCOTIZACION} Vence en 3 días — Cliente: {item.cliente}";
+
+                            }
+                            else if (tipo == 2)
+                            {
+                                //correo.To.Add("lhuerta@koplastindustrial.com");
+                                correo.Subject = $"Cotización {item.NROCOTIZACION} Vence Hoy — Cliente: {item.cliente}";
+
+                            }
+                            else if (tipo == 3)
+                            {
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                correo.Subject = $"Cotización {item.NROCOTIZACION} Vencida — Cliente: {item.cliente}";
+                            }
+                            else if (tipo == 4)
+                            {
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
+
+
+                            }
+                            else if (tipo == 5)
+                            {
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
+
+
+                            }
+                            else if (tipo == 6)
+                            {
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
+
+
+                            }
+                            else if (tipo == 7)
+                            {
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                //correo.To.Add("riders_230588@hotmail.com");
+                                correo.Subject = $"Contrato por Vencer";
+
+
+                            }
+                            correo.Body = CreateBodyPorVencer(tipo, item);
+
+                            correo.IsBodyHtml = true;
+
+                            try
+                            {
+                                using (var client = new SmtpClient("smtp.office365.com", 25))
+                                {
+                                    client.Credentials = new System.Net.NetworkCredential(correoenvio, claveenvio);
+
+                                    client.EnableSsl = true;
+                                    await client.SendMailAsync(correo);
                                 }
                             }
-
-                        }
-                        if (tipo == 1)
-                        {
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            //correo.To.Add("lhuerta@koplastindustrial.com");
-                            correo.Subject = $"Cotización {item.NROCOTIZACION} Vence en 3 días — Cliente: {item.cliente}";
-
-                        }
-                        else if (tipo == 2)
-                        {
-                            //correo.To.Add("lhuerta@koplastindustrial.com");
-                            correo.Subject = $"Cotización {item.NROCOTIZACION} Vence Hoy — Cliente: {item.cliente}";
-
-                        }
-                        else if (tipo == 3)
-                        {
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            correo.Subject = $"Cotización {item.NROCOTIZACION} Vencida — Cliente: {item.cliente}";
-                        }
-                        else if (tipo == 4)
-                        {
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
-
-
-                        }
-                        else if (tipo == 5)
-                        {
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
-
-
-                        }
-                        else if (tipo == 6)
-                        {
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            correo.Subject = $"Pedido {item.NROCOTIZACION} Sin Atención — Cliente: {item.cliente}";
-
-
-                        }
-                        else if (tipo == 7)
-                        {
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            //correo.To.Add("riders_230588@hotmail.com");
-                            correo.Subject = $"Contrato por Vencer";
-
-
-                        }
-                        correo.Body = CreateBodyPorVencer(tipo, item);
-
-                        correo.IsBodyHtml = true;
-
-                        try
-                        {
-                            using (var client = new SmtpClient("smtp.office365.com", 25))
+                            catch (Exception ex)
                             {
-                                client.Credentials = new System.Net.NetworkCredential("cotizacionkoplast@koplastindustrial.com", "K0pl@$t_2026@");
 
-                                client.EnableSsl = true;
-                                await client.SendMailAsync(correo);
                             }
-                        }
-                        catch (Exception ex)
-                        {
 
                         }
-                       
-                    }                                                                        
 
-                }
+                    }
+
 
                 
+             
+
+
 
 
             }
@@ -188,7 +214,7 @@ namespace KPLEnvioCorreo.Clases
             //string path = @"C:\inetpub\plantilla\portada.html";
             string body = string.Empty;
             string ruta = "https://intranet.koplast.pe/";
-           
+            string diasvencido = "";
 
             string path = ConfigurationSettings.AppSettings["RutaArchivosCorreo"];
             if (tipo == 1)
@@ -255,6 +281,38 @@ namespace KPLEnvioCorreo.Clases
             body = body.Replace("{FECHA_EMISION}", objeto.fechaemision.ToString("dd/MM/yyyy"));
             
             body = body.Replace("{rutaportal}", ruta);
+
+
+            if (tipo==7) 
+            {
+                string nametipo = "";
+                diasvencido = "30";
+                if (objeto.cliente=="1")
+                {
+                    nametipo = "CONTRATO";
+                }
+                else if (objeto.cliente=="2")
+                {
+                    nametipo = "GARANTIA";
+                }
+                else if (objeto.cliente == "3")
+                {
+                    nametipo = "PERMISO";
+                }
+                else if (objeto.cliente == "4")
+                {
+                    nametipo = "MANTENIMIENTO";
+                }
+                else if (objeto.cliente == "5")
+                {
+                    nametipo = "CALIBRACIONES";
+                }
+
+                body = body.Replace("{TIPOCONTRATO}", nametipo);
+                body = body.Replace("{NOMBRECONTRATO}", objeto.NROCOTIZACION);
+                body = body.Replace("{DIASPORVENCER}", diasvencido);
+
+            }
 
 
 

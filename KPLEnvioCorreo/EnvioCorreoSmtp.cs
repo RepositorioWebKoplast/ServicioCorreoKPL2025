@@ -206,11 +206,7 @@ namespace KPLEnvioCorreo
                 timercotizacionporvencer3dias.Dispose();
             }
 
-            //if (timercotizacionporvencer3dias != null)
-            //{
-            //    timercotizacionporvencer3dias.Stop();
-            //    timercotizacionporvencer3dias.Dispose();
-            //}
+         
             if (timercotizacionporvencervencido != null)
             {
                 timercotizacionporvencervencido.Stop();
